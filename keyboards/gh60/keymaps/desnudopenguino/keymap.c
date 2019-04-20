@@ -15,7 +15,10 @@
 /* custom keycodes for macros */
 enum custom_keycodes {
  G_ADD = SAFE_RANGE,
- G_ADALL
+ G_ADALL,
+ G_COM,
+ G_COMM,
+ G_ADALC
 };
 
 
@@ -43,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, G_ADALL, _______, _______, _______,
     _______, G_ADD,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, G_ADALC, _______, _______, _______, _______, _______, G_COM,   G_COMM,  _______, _______, _______, _______,
     _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
   ),
   /* 3: fn */
@@ -104,6 +107,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;break;
       case G_ADALL:
         SEND_STRING("git add .\n");
+        return false;break;
+      case G_COM:
+        SEND_STRING("git commit\n");
+        return false;break;
+      case G_COMM:
+        SEND_STRING("git commit -m \"");
+        return false;break;
+      case G_ADALC:
+        SEND_STRING("git add .&& git commit\n");
         return false;break;
     }
   }
