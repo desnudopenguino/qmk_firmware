@@ -18,7 +18,10 @@ enum custom_keycodes {
  G_ADALL,
  G_COM,
  G_COMM,
- G_ADALC
+ G_ADALC,
+ G_PUSH,
+ G_PUORM,
+ G_STAT,
 };
 
 
@@ -44,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 2: git macros */
   LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, G_ADALL, _______, _______, _______,
+    _______, _______, _______, _______, G_PUSH,  _______, _______, _______, G_COM,   _______, G_ADALL, _______, _______, _______,
     _______, G_ADD,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, G_ADALC, _______, _______, _______, _______, _______, G_COM,   G_COMM,  _______, _______, _______, _______,
+    _______, _______, G_ADALC, _______, _______, _______, _______, _______, G_PUOM,  _______,  _______, _______, _______, _______,
     _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
   ),
   /* 3: fn */
@@ -116,6 +119,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;break;
       case G_ADALC:
         SEND_STRING("git add .&& git commit\n");
+        return false;break;
+      case G_PUSH:
+        SEND_STRING("git push");
+        return false;break;
+      case G_PUORM:
+        SEND_STRING("git push origin master\m");
+        return false;break;
+      case G_STAT:
+        SEND_STRING("git status\n");
         return false;break;
     }
   }
