@@ -20,6 +20,7 @@ enum custom_keycodes {
  G_COMM,
  G_ADALC,
  G_PUSH,
+ G_PULL,
  G_PUORM,
  G_STAT,
  G_FETCH,
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 2: git macros */
   LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, G_PULL,  _______, _______, _______,
     _______, G_ADD,   _______, _______, _______, _______, G_DIFF,  _______, _______, _______, G_STAT,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
@@ -134,6 +135,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("git push origin master\n");
         } else {
             SEND_STRING("git push");
+        }
+        layer_off(_GM);
+        return false;break;
+      case G_PULL:
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git pull origin master\n");
+        } else {
+            SEND_STRING("git pull");
         }
         layer_off(_GM);
         return false;break;
