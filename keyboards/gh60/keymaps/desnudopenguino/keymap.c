@@ -22,6 +22,7 @@ enum custom_keycodes {
  G_PUSH,
  G_PUORM,
  G_STAT,
+ G_FETCH,
 };
 
 
@@ -47,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 2: git macros */
   LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, G_PUSH,  _______, _______, _______, G_COM,   _______, G_ADALL, _______, _______, _______,
+    _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, _______, _______, _______, _______,
     _______, G_ADD,   _______, _______, _______, _______, _______, _______, _______, _______, G_STAT,  _______, _______, _______,
-    _______, _______, G_ADALC, _______, _______, _______, _______, _______, G_PUORM, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
   ),
   /* 3: fn */
@@ -106,28 +107,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case G_ADD:
-        SEND_STRING("git add ");
-        return false;break;
-      case G_ADALL:
-        SEND_STRING("git add .\n");
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git add .\n");
+        } else {
+            SEND_STRING("git add");
+        }
         return false;break;
       case G_COM:
-        SEND_STRING("git commit\n");
-        return false;break;
-      case G_COMM:
-        SEND_STRING("git commit -m \"");
-        return false;break;
-      case G_ADALC:
-        SEND_STRING("git add .&& git commit\n");
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git add . && git commit\n");
+        } else {
+            SEND_STRING("git commit\n");
+        }
         return false;break;
       case G_PUSH:
-        SEND_STRING("git push");
-        return false;break;
-      case G_PUORM:
-        SEND_STRING("git push origin master\n");
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git push origin master\n");
+        } else {
+            SEND_STRING("git push");
+        }
         return false;break;
       case G_STAT:
         SEND_STRING("git status\n");
+        return false;break;
+      case G_FETCH:
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git fetch --all\n");
+        } else {
+            SEND_STRING("git fetch");
+        }
         return false;break;
     }
   }
