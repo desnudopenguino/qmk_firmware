@@ -23,6 +23,7 @@ enum custom_keycodes {
  G_PUORM,
  G_STAT,
  G_FETCH,
+ G_DIFF,
 };
 
 
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, _______, _______, _______, _______,
-    _______, G_ADD,   _______, _______, _______, _______, _______, _______, _______, _______, G_STAT,  _______, _______, _______,
+    _______, G_ADD,   _______, _______, _______, _______, G_DIFF,  _______, _______, _______, G_STAT,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
   ),
@@ -114,6 +115,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git add");
         }
+        layer_off(_GM);
         return false;break;
       case G_COM:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
@@ -123,6 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git commit\n");
         }
+        layer_off(_GM);
         return false;break;
       case G_PUSH:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
@@ -132,9 +135,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git push");
         }
+        layer_off(_GM);
         return false;break;
       case G_STAT:
         SEND_STRING("git status\n");
+        layer_off(_GM);
         return false;break;
       case G_FETCH:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
@@ -144,6 +149,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git fetch");
         }
+        layer_off(_GM);
+        return false;break;
+      case G_DIFF:
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git difftool\n");
+        } else {
+            SEND_STRING("git difftool");
+        }
+        layer_off(_GM);
         return false;break;
     }
   }
