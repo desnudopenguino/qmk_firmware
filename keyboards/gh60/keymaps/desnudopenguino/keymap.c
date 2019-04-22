@@ -23,6 +23,7 @@ enum custom_keycodes {
  G_FETCH,
  G_DIFF,
  G_MERGE,
+ G_CHECK,
 };
 
 
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CTLALTD,
     _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, G_PULL,  _______, _______, _______,
-    _______, G_ADD,   _______, _______, _______, _______, G_DIFF,  _______, _______, _______, G_STAT,  _______, _______, _______,
+    _______, G_ADD,   _______, _______, _______, _______, G_DIFF,  G_CHECK, _______, _______, G_STAT,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, G_MERGE, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
   ),
@@ -177,6 +178,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("git merge master\n");
         } else {
             SEND_STRING("git merge ");
+        }
+        layer_off(_GM);
+        return false;break;
+      case G_CHECK:
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git checkout -b ");
+        } else {
+            SEND_STRING("git checkout ");
         }
         layer_off(_GM);
         return false;break;
