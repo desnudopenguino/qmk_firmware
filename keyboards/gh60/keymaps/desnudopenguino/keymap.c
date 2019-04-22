@@ -15,16 +15,13 @@
 /* custom keycodes for macros */
 enum custom_keycodes {
  G_ADD = SAFE_RANGE,
- G_ADALL,
  G_COM,
- G_COMM,
- G_ADALC,
  G_PUSH,
  G_PULL,
- G_PUORM,
  G_STAT,
  G_FETCH,
  G_DIFF,
+ G_MERGE,
 };
 
 
@@ -52,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, G_PULL,  _______, _______, _______,
     _______, G_ADD,   _______, _______, _______, _______, G_DIFF,  _______, _______, _______, G_STAT,  _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, G_MERGE, _______, _______, _______, _______, _______, _______,
     _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
   ),
   /* 3: fn */
@@ -114,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
             SEND_STRING("git add .\n");
         } else {
-            SEND_STRING("git add");
+            SEND_STRING("git add ");
         }
         layer_off(_GM);
         return false;break;
@@ -134,7 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
             SEND_STRING("git push origin master\n");
         } else {
-            SEND_STRING("git push");
+            SEND_STRING("git push ");
         }
         layer_off(_GM);
         return false;break;
@@ -144,7 +141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
             SEND_STRING("git pull origin master\n");
         } else {
-            SEND_STRING("git pull");
+            SEND_STRING("git pull ");
         }
         layer_off(_GM);
         return false;break;
@@ -158,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
             SEND_STRING("git fetch --all\n");
         } else {
-            SEND_STRING("git fetch");
+            SEND_STRING("git fetch ");
         }
         layer_off(_GM);
         return false;break;
@@ -168,7 +165,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
             SEND_STRING("git difftool\n");
         } else {
-            SEND_STRING("git difftool");
+            SEND_STRING("git difftool ");
+        }
+        layer_off(_GM);
+        return false;break;
+      case G_MERGE:
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("git merge master\n");
+        } else {
+            SEND_STRING("git merge ");
         }
         layer_off(_GM);
         return false;break;
