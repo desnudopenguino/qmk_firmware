@@ -11,6 +11,7 @@
 #define LALT_CB LALT_T(KC_LCBR)
 #define RALT_CB RALT_T(KC_RCBR)
 #define G_MOD   OSL(_GM)
+#define CTLALTD LCTL(LALT(KC_DEL))
 
 /* custom keycodes for macros */
 enum custom_keycodes {
@@ -22,6 +23,7 @@ enum custom_keycodes {
  G_FETCH,
  G_DIFF,
  G_MERGE,
+ CT_AL_D,
 };
 
 
@@ -46,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   /* 2: git macros */
   LAYOUT(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CTLALTD,
     _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, G_PULL,  _______, _______, _______,
     _______, G_ADD,   _______, _______, _______, _______, G_DIFF,  _______, _______, _______, G_STAT,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, G_MERGE, _______, _______, _______, _______, _______, _______,
