@@ -23,7 +23,6 @@ enum custom_keycodes {
  G_FETCH,
  G_DIFF,
  G_MERGE,
- CT_AL_D,
 };
 
 
