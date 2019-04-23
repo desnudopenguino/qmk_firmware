@@ -15,15 +15,24 @@
 
 /* custom keycodes for macros */
 enum custom_keycodes {
- G_ADD = SAFE_RANGE,
- G_COM,
- G_PUSH,
- G_PULL,
- G_STAT,
- G_FETCH,
- G_DIFF,
- G_MERGE,
- G_CHECK,
+  /* git macros */
+  G_ADD = SAFE_RANGE,
+  G_COM,
+  G_PUSH,
+  G_PULL,
+  G_STAT,
+  G_FETCH,
+  G_DIFF,
+  G_MERGE,
+  G_CHECK,
+  /* tmux macros */
+  T_NEW,
+  T_ATCH,
+  T_LIST,
+  T_KILL,
+  TP_LOAD,
+  /* compile this keymap */
+  KB_MAKE,
 };
 
 
@@ -50,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CTLALTD,
     _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, G_PULL,  _______, _______, _______,
-    _______, G_ADD,   _______, _______, _______, _______, G_DIFF,  G_CHECK, _______, _______, G_STAT,  _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, G_MERGE, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
+    _______, G_ADD,   TP_LOAD, _______, _______, T_LIST,  G_DIFF,  G_CHECK, T_ATCH,  T_NEW,   G_STAT,  _______, _______, _______,
+    _______, _______, _______, _______, T_KILL,  _______, _______, G_MERGE, _______, _______, _______, _______, _______, _______,
+    KB_MAKE, _______, _______,                   _______,                            _______, _______, _______, _______, _______
   ),
   /* 3: fn */
   LAYOUT(
@@ -188,6 +197,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("git checkout -b ");
         } else {
             SEND_STRING("git checkout ");
+        }
+        layer_off(_GM);
+        return false;break;
+      case T_NEW:
+        SEND_STRING("tmux new -s ");
+        layer_off(_GM);
+        return false;break;
+      case T_ATCH:
+        SEND_STRING("tmux attach -t ");
+        layer_off(_GM);
+        return false;break;
+      case T_LIST:
+        SEND_STRING("tmux ls\n");
+        layer_off(_GM);
+        return false;break;
+      case T_KILL:
+        SEND_STRING("tmux kill-session -t ");
+        layer_off(_GM);
+        return false;break;
+      case TP_LOAD:
+        SEND_STRING("tmuxp load ");
+        layer_off(_GM);
+        return false;break;
+      case KB_MAKE:
+        if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+            SEND_STRING("gmake gh60:desnudopenguino:dfu\n");
+        } else {
+            SEND_STRING("gmake gh60:desnudopenguino\n");
         }
         layer_off(_GM);
         return false;break;
