@@ -165,7 +165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
             unregister_code(KC_RSFT);
-            SEND_STRING("git difftool\n");
+            SEND_STRING("git difftool -y\n");
         } else {
             SEND_STRING("git difftool ");
         }
