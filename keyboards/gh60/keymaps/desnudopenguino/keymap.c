@@ -12,6 +12,8 @@
 #define RALT_CB RALT_T(KC_RCBR)
 #define G_MOD   OSL(_GM)
 #define CTLALTD LCTL(LALT(KC_DEL))
+#define WIN_LF  LCTL(LGUI(KC_LEFT))
+#define WIN_RT  LCTL(LGUI(KC_RGHT))
 
 /* custom keycodes for macros */
 enum custom_keycodes {
@@ -61,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, G_PULL,  _______, _______, _______,
     _______, G_ADD,   TP_LOAD, _______, _______, T_LIST,  G_DIFF,  G_CHECK, T_ATCH,  T_NEW,   G_STAT,  _______, _______, _______,
     _______, _______, _______, _______, T_KILL,  _______, _______, G_MERGE, _______, _______, _______, _______, _______, _______,
-    KB_MAKE, _______, _______,                   _______,                            _______, _______, _______, _______, _______
+    KB_MAKE, _______, _______,                   _______,                            _______, _______, WIN_LF,  _______, WIN_RT
   ),
   /* 3: fn */
   LAYOUT(
