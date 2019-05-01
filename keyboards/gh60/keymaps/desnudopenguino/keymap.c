@@ -35,6 +35,16 @@ enum custom_keycodes {
   TP_LOAD,
   /* compile this keymap */
   KB_MAKE,
+  /* GROUPS */
+  GROUP_1,
+  GROUP_2,
+  GROUP_3,
+  GROUP_4,
+  GROUP_5,
+  GROUP_6,
+  GROUP_7,
+  GROUP_8,
+  GROUP_9,
 };
 
 
@@ -44,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC,
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS,
-    CTL_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, KC_NO,   KC_ENT,
+    CTL_T(KC_ESC), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, KC_NO,   KC_ENT,
     KC_LSPO, KC_NO,   KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_NO,   KC_RSPC,
     KC_CAPS, KC_LGUI, LALT_CB,                   KC_SPC,                             KC_NO,   MO(_MO), RALT_CB, G_MOD,   KC_RCTL
   ),
@@ -59,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   /* 2: git macros */
   LAYOUT(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CTLALTD,
+    _______, GROUP_1, GROUP_2, GROUP_3, GROUP_4, GROUP_5, GROUP_6, GROUP_7, GROUP_8, GROUP_9, _______, _______, _______, CTLALTD,
     _______, _______, _______, _______, G_PUSH,  _______, G_FETCH, _______, G_COM,   _______, G_PULL,  _______, _______, _______,
     _______, G_ADD,   TP_LOAD, _______, _______, T_LIST,  G_DIFF,  G_CHECK, T_ATCH,  T_NEW,   G_STAT,  _______, _______, _______,
     _______, _______, _______, _______, T_KILL,  _______, _______, G_MERGE, _______, _______, _______, _______, _______, _______,
@@ -132,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
             unregister_code(KC_RSFT);
-            SEND_STRING("git add . && git commit\n");
+            SEND_STRING("git add . && git commit\ni");
         } else {
             SEND_STRING("git commit\n");
         }
@@ -230,6 +240,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("gmake gh60:desnudopenguino\n");
         }
+        layer_off(_GM);
+        return false;break;
+      case GROUP_1:
+        register_code(KC_RCTL);
+        unregister_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("1");
+        unregister_code(KC_LCTL);
         layer_off(_GM);
         return false;break;
     }
