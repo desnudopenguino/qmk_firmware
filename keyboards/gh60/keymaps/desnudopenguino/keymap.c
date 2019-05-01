@@ -144,7 +144,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
             SEND_STRING("git add . && git commit\ni");
         } else {
-            SEND_STRING("git commit\n");
+            SEND_STRING("git commit\ni");
         }
         layer_off(_GM);
         return false;break;
