@@ -233,6 +233,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("1");
         unregister_code(KC_LCTL);
         break;
+      case GROUP_2:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("2");
+        unregister_code(KC_LCTL);
+        break;
+      case GROUP_3:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("3");
+        unregister_code(KC_LCTL);
+        break;
+      case GROUP_4:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("4");
+        unregister_code(KC_LCTL);
+        break;
+      case GROUP_5:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("5");
+        unregister_code(KC_LCTL);
+        break;
+      case GROUP_6:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("6");
+        unregister_code(KC_LCTL);
+        break;
+      case GROUP_7:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("7");
+        unregister_code(KC_LCTL);
+        break;
+      case GROUP_8:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("8");
+        unregister_code(KC_LCTL);
+        break;
+      case GROUP_9:
+        tap_code(KC_RCTL);
+        register_code(KC_LCTL);
+        SEND_STRING("9");
+        unregister_code(KC_LCTL);
+        break;
     }
   }
   return true;
