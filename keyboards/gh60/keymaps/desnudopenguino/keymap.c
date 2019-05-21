@@ -136,8 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git add ");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_COM:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -146,8 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git commit\ni");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_PUSH:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -156,8 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git push ");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_PULL:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -166,12 +163,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git pull ");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_STAT:
         SEND_STRING("git status\n");
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_FETCH:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -180,8 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git fetch ");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_DIFF:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -190,8 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git difftool ");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_MERGE:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -200,8 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git merge ");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case G_CHECK:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -210,28 +202,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("git checkout ");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case T_NEW:
         SEND_STRING("tmux new -s ");
-        layer_off(_GM);
-        return false;break;
+        break;
       case T_ATCH:
         SEND_STRING("tmux attach -t ");
-        layer_off(_GM);
-        return false;break;
+        break;
       case T_LIST:
         SEND_STRING("tmux ls\n");
-        layer_off(_GM);
-        return false;break;
+        break;
       case T_KILL:
         SEND_STRING("tmux kill-session -t ");
-        layer_off(_GM);
-        return false;break;
+        break;
       case TP_LOAD:
         SEND_STRING("tmuxp load ");
-        layer_off(_GM);
-        return false;break;
+        break;
       case KB_MAKE:
         if(get_mods() && (MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT))) {
             unregister_code(KC_LSFT);
@@ -240,16 +226,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             SEND_STRING("gmake gh60:desnudopenguino\n");
         }
-        layer_off(_GM);
-        return false;break;
+        break;
       case GROUP_1:
-        register_code(KC_RCTL);
-        unregister_code(KC_RCTL);
+        tap_code(KC_RCTL);
         register_code(KC_LCTL);
         SEND_STRING("1");
         unregister_code(KC_LCTL);
-        layer_off(_GM);
-        return false;break;
+        break;
     }
   }
   return true;
